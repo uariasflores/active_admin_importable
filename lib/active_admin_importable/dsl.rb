@@ -2,8 +2,9 @@ module ActiveAdminImportable
   module DSL
     def active_admin_importable(&block)
       action_item :only => :index do
-        resource_name = active_admin_config.resource_name.to_s
-        label = I18n.t(resource_name, scope: 'active_admin.import', default: "Import #{resource_name.pluralize}")
+        resource_name = active_admin_config.resource_name.to_s.underscore
+        
+        label = I18n.t(resource_name, scope: 'active_admin.import', default: "Import #{resource_name.pluralize.humanize}")
         
         link_to label, :action => 'upload_csv'
       end
