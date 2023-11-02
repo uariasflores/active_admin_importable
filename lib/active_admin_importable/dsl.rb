@@ -10,12 +10,10 @@ module ActiveAdminImportable
       end
 
       collection_action :upload_csv do
-        authorize!(ActiveAdminImport::Auth::IMPORT, active_admin_config.resource_class)
         render "admin/csv/upload_csv"
       end
 
       collection_action :import_csv, :method => :post do
-        authorize!(ActiveAdminImport::Auth::IMPORT, active_admin_config.resource_class)
         CsvDb.convert_save(active_admin_config.resource_class, params[:dump][:file], &block)
         redirect_to :action => :index, :notice => "#{active_admin_config.resource_name.to_s} imported successfully!"
       end
